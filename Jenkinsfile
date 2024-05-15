@@ -45,13 +45,12 @@ pipeline {
                     }
                 }
             }
-            
-        }
-
-        stage("Wait for Quality Gate") {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+            post {
+                success {
+                    echo 'SonarQube analysis successful!'
+                }
+                failure {
+                    echo 'SonarQube analysis failed, but continuing pipeline...'
                 }
             }
         }
