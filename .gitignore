@@ -1,0 +1,30 @@
+# Ignore system files
+*.pyc
+__pycache__
+
+# Ignore database file
+db.sqlite3
+
+# Ignore virtual environment
+venv/
+
+# Ignore IDE/Editor specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore local configuration
+*.bak
+*.log
+*.swp
+
+# Ignore local development settings
+local_settings.py
+
+# Ignore pipenv and poetry files
+Pipfile
+Pipfile.lock
+pyproject.toml
+
+# Ignore database migrations
+*/migrations/*
