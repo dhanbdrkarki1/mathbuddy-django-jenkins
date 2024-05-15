@@ -39,7 +39,7 @@ pipeline {
                         -Dsonar.projectName=${SONAR_PROJECT_KEY} \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
-                        -Dsonar.exclusions=venv,static, requirements.txt,tests,migrations,asgi.py,wsgi.py,manage.py \
+                        -Dsonar.exclusions=venv,static,requirements.txt,tests,migrations,asgi.py,wsgi.py,manage.py,static/styles/style.css \
                         -Dsonar.python.version=3
                         """
                     }
@@ -53,6 +53,7 @@ pipeline {
                     echo 'SonarQube analysis failed, but continuing pipeline...'
                 }
             }
+            
         }
         
         stage("OWASP SCAN"){
