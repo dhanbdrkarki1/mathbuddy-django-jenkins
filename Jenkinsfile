@@ -38,6 +38,7 @@ pipeline {
                         ${SONAR_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=${SONAR_PROJECT_KEY} \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                        -Dsonar.java.binaries=. \
                         -Dsonar.sources=. \
                         -Dsonar.exclusions=venv,requirements.txt,tests,migrations,asgi.py,wsgi.py,manage.py \
                         -Dsonar.python.version=3
