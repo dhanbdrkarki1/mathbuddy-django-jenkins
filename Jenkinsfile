@@ -40,7 +40,7 @@ pipeline {
                         -Dsonar.projectName=${SONAR_PROJECT_KEY} \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
-                        -Dsonar.exclusions=venv,static,requirements.txt,tests,migrations,asgi.py,wsgi.py,manage.py,static/styles/style.css \
+                        -Dsonar.exclusions=venv,requirements.txt,migrations,asgi.py,wsgi.py,manage.py,settings.py,__init__.py \
                         -Dsonar.python.version=3
                         """
                     }
@@ -80,7 +80,7 @@ pipeline {
                        withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                             sh "docker compose up -d"
                             //since custom user is used, it needs to created first hence base app should be defined.
-                            sh 'docker compose exec mathbuddy-web python /code/manage.py makemigrations base'
+                            sh 'docker compose exec mathbuddy-web python /code/manage.py makemigrations'
                             sh 'docker compose exec mathbuddy-web python /code/manage.py migrate'
                             
                             sh 'docker compose exec mathbuddy-web python /code/manage.py collectstatic --noinput'
