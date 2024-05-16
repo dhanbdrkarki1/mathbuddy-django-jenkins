@@ -40,7 +40,7 @@ pipeline {
                         -Dsonar.projectName=${SONAR_PROJECT_KEY} \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
-                        -Dsonar.exclusions=venv,requirements.txt,migrations,asgi.py,wsgi.py,manage.py,settings.py,__init__.py,jet,admin,range_filter,rest_framework \
+                        -Dsonar.exclusions=venv,requirements.txt,data,migrations,asgi.py,wsgi.py,manage.py,settings.py,__init__.py,jet,admin,range_filter,rest_framework \
                         -Dsonar.python.version=3
                         """
                     }
