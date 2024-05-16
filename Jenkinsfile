@@ -80,7 +80,7 @@ pipeline {
                        withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                             sh "docker compose up -d"
                             //since custom user is used, it needs to created first hence base app should be defined.
-                            sh 'docker compose exec mathbuddy-web python /code/manage.py makemigrations'
+                            sh 'docker compose exec mathbuddy-web python /code/manage.py makemigrations base'
                             sh 'docker compose exec mathbuddy-web python /code/manage.py migrate'
                             
                             sh 'docker compose exec mathbuddy-web python /code/manage.py collectstatic --noinput'
