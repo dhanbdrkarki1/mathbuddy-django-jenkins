@@ -15,8 +15,10 @@ git clone https://github.com/dhanbdrkarki1/mathbuddy-django-jenkins.git
 cd mathbuddy-django-jenkins
 ```
 
-# Dockerizing the application
+### Dockerizing the application
+--> Ensure that the docker is installed.
+
 ```bash
-cd docker compose up --build
+docker compose up --build
 ```
 
