@@ -21,6 +21,6 @@ server {
     }
 
     location /media/ {
-        alias /code/static/images/;
+        alias /code/media/;
     }
 }
