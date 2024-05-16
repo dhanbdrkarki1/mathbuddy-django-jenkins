@@ -10,7 +10,8 @@ pipeline {
         DJANGO_ADMIN_USERNAME = 'admin'
         DJANGO_ADMIN_EMAIL = 'admin@gmail.com'
         DJANGO_ADMIN_PASSWORD = 'P@ssword0'
-        NVD_API_KEY='55dae647-b1a6-46cf-b3bc-d524db1d8e2b'
+        NVD_API_KEY=credentials('nvd-api-key')
+        
     }
 
     stages {
