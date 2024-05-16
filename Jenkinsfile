@@ -10,6 +10,7 @@ pipeline {
         DJANGO_ADMIN_USERNAME = 'admin'
         DJANGO_ADMIN_EMAIL = 'admin@gmail.com'
         DJANGO_ADMIN_PASSWORD = 'P@ssword0'
+        NVD_API_KEY='55dae647-b1a6-46cf-b3bc-d524db1d8e2b'
     }
 
     stages {
@@ -58,7 +59,7 @@ pipeline {
         
         stage("OWASP SCAN"){
         	steps{
-        		dependencyCheck additionalArguments: '--scan ./', odcInstallation:'owasp-dependency-check'
+        		dependencyCheck additionalArguments: '--scan ./ --nvdApiKey $NVD_API_KEY', odcInstallation:'owasp-dependency-check'
         		dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         	}
         }
