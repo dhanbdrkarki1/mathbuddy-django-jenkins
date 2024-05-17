@@ -30,7 +30,13 @@ pipeline {
                 }
             }
         }
-        
+
+        stage("OWASP SCAN"){
+        	steps{
+        		dependencyCheck additionalArguments: '--scan ./ --nvdApiKey $NVD_API_KEY', odcInstallation:'owasp-dependency-check'
+        		dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        	}
+        }        
         
         stage('Sonarqube analysis') {
             steps {
@@ -42,6 +48,7 @@ pipeline {
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
                         -Dsonar.exclusions=**/migrations/**,**/tests/**,**/venv/**,**/requirements.txt,**/manage.py,**/asgi.py,**/wsgi.py,**/__pycache__/**,**/node_modules/**,**/media/**,**/admin/**,**/jet/**,**/range_filter/**,**/rest_framework/** \
+                        -Dsonar.dependencyCheck.xmlReportPath=dependency-check-report.xml \
                         -Dsonar.python.version=3
                         """
                     }
@@ -58,12 +65,7 @@ pipeline {
             
         }
         
-        stage("OWASP SCAN"){
-        	steps{
-        		dependencyCheck additionalArguments: '--scan ./ --nvdApiKey $NVD_API_KEY', odcInstallation:'owasp-dependency-check'
-        		dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        	}
-        }
+
         stage('Build & Push Docker Image'){
             steps{
                    script{
