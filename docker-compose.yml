@@ -3,7 +3,7 @@ services:
     image: postgres:latest
     restart: always
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ~/mathbuddy/data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
