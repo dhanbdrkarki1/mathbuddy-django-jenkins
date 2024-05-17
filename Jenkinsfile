@@ -80,7 +80,7 @@ pipeline {
                    script{
                        withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                             sh "docker compose up -d"
-                            //since custom user is used, it needs to created first hence base app should be defined.
+                            //since custom user is used, user needs to created first hence base app should be defined.
                             sh 'docker compose exec mathbuddy-web python /code/manage.py makemigrations base'
                             sh 'docker compose exec mathbuddy-web python /code/manage.py migrate'
                             
@@ -94,7 +94,7 @@ pipeline {
         stage('Create Superuser') {
             steps {
                 script {
-                    def hasAdminUser = sh(returnStdout: true, script: 'docker compose exec mathbuddy-web python /code/manage.py check --command exists auth.User username="$DJANGO_ADMIN_USERNAME"').trim()
+                    def hasAdminUser = sh(returnStdout: true, script: 'docker compose exec mathbuddy-web python /code/manage.py shell -c "from base.models import User; print(User.objects.filter(username=\'$DJANGO_ADMIN_USERNAME\').exists())"').trim()
                     if (!hasAdminUser.equalsIgnoreCase("True")) {
                         def loginUrl = "$HTTP_HOST/admin/login/"
                         sh "echo 'from base.models import User; User.objects.create_superuser(username=\"$DJANGO_ADMIN_USERNAME\", email=\"$DJANGO_ADMIN_EMAIL\", password=\"$DJANGO_ADMIN_PASSWORD\")' | docker compose exec -T mathbuddy-web python /code/manage.py shell"
