@@ -10,7 +10,7 @@ pipeline {
         DJANGO_ADMIN_USERNAME = 'admin'
         DJANGO_ADMIN_EMAIL = 'admin@gmail.com'
         DJANGO_ADMIN_PASSWORD = 'P@ssword0'
-        NVD_API_KEY=credentials('nvd-api-key')
+        NVD_API_KEY = credentials('nvd-api-key')
         
     }
 
@@ -95,7 +95,7 @@ pipeline {
             steps{
                 script{
                     //creating super user non-interactively
-            sh "echo 'from base.models import User; User.objects.create_superuser(username=\"$DJANGO_ADMIN_USERNAME\", email=\"$DJANGO_ADMIN_EMAIL\", password=\"$DJANGO_ADMIN_PASSWORD\")' | docker compose exec -T mathbuddy-web python /code/manage.py shell"
+                    sh "echo 'from base.models import User; User.objects.create_superuser(username=\"$DJANGO_ADMIN_USERNAME\", email=\"$DJANGO_ADMIN_EMAIL\", password=\"$DJANGO_ADMIN_PASSWORD\")' | docker compose exec -T mathbuddy-web python /code/manage.py shell"
                 }
             }
         }
