@@ -36,12 +36,20 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonarqube') {
+                        def djangoExclusions = [
+                            '**/admin/**', '**/migrations/**', '**/tests/**',
+                            '**/venv/**', '**/requirements.txt', '**/manage.py',
+                            '**/asgi.py', '**/wsgi.py', '**/__pycache__/**',
+                            '**/node_modules/**','**/media/**',
+                            '**/admin/**','**/jet/**','**/range_filter/**','**/rest_framework/**'
+                        ]
+
                         sh """
                         ${SONAR_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=${SONAR_PROJECT_KEY} \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
-                        -Dsonar.exclusions=venv,requirements.txt,data,migrations,asgi.py,wsgi.py,manage.py,settings.py,__init__.py,jet,admin,range_filter,rest_framework \
+                        -Dsonar.exclusions= ${djangoExclusions} \
                         -Dsonar.python.version=3
                         """
                     }
