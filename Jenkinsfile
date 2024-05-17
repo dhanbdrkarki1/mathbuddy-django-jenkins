@@ -33,7 +33,11 @@ pipeline {
 
         stage("OWASP SCAN"){
         	steps{
-        		dependencyCheck additionalArguments: '--scan ./ --nvdApiKey $NVD_API_KEY', odcInstallation:'owasp-dependency-check'
+        		dependencyCheck additionalArguments: '''
+                    -o './'
+                    -s './'
+                    -f 'ALL'
+                    --nvdApiKey $NVD_API_KEY''', odcInstallation:'owasp-dependency-check'
         		dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         	}
         }        
