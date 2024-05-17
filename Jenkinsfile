@@ -103,7 +103,9 @@ pipeline {
             steps{
                 script{
                     //creating super user non-interactively
+                    def loginUrl = "$HTTP_HOST/admin/login/"
                     sh "echo 'from base.models import User; User.objects.create_superuser(username=\"$DJANGO_ADMIN_USERNAME\", email=\"$DJANGO_ADMIN_EMAIL\", password=\"$DJANGO_ADMIN_PASSWORD\")' | docker compose exec -T mathbuddy-web python /code/manage.py shell"
+                    echo "Superuser created! You can login to admin panel at: ${loginUrl}"
                 }
             }
         }
